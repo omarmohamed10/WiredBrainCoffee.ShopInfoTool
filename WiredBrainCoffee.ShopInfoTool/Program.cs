@@ -1,5 +1,6 @@
 ﻿using System;
 using WiredBrainCoffee.DataAccess;
+using System.Linq;
 
 namespace WiredBrainCoffee.ShopInfoTool
 {
@@ -32,6 +33,22 @@ namespace WiredBrainCoffee.ShopInfoTool
                     {
                         Console.WriteLine($"> " + coffeeShop.Location);
                     }
+                }
+                else
+                {
+                    var foundCoffeeShops = coffeeShops
+                        .Where(x => x.Location.StartsWith(line, StringComparison.OrdinalIgnoreCase))
+                        .ToList();
+                    if (foundCoffeeShops.Count == 0) Console.WriteLine("No CoffeeShop found");
+                    else
+                    {
+                        Console.WriteLine("coffeeShops locations found are");
+                        foreach (var coffeeShop in foundCoffeeShops)
+                        {
+                            Console.WriteLine(coffeeShop.Location);
+                        }
+                    }
+
                 }
             }
         }
